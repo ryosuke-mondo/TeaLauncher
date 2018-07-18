@@ -44,18 +44,9 @@ public class HotKey : IDisposable
     /// </summary>
     /// <param name="modKey">修飾キー</param>
     /// <param name="key">キー</param>
-    public HotKey(MOD_KEY modKey, Keys key)
-    {
-        m_Form = new HotKeyForm(modKey, key, raiseHotKeyPressed);
-    }
+    public HotKey(MOD_KEY modKey, Keys key) => m_Form = new HotKeyForm(modKey, key, RaiseHotKeyPressed);
 
-    private void raiseHotKeyPressed()
-    {
-        if (HotKeyPressed != null)
-        {
-            HotKeyPressed(this, EventArgs.Empty);
-        }
-    }
+    private void RaiseHotKeyPressed() => HotKeyPressed?.Invoke(this, EventArgs.Empty);
 
     public void Dispose()
     {
@@ -79,7 +70,7 @@ public class HotKey : IDisposable
             this.proc = proc;
             for (int i = 0x0000; i <= 0xbfff; i++)
             {
-                if (RegisterHotKey(this.Handle, i, modKey, key) != 0)
+                if (RegisterHotKey(Handle, i, modKey, key) != 0)
                 {
                     id = i;
                     break;
@@ -91,12 +82,8 @@ public class HotKey : IDisposable
         {
             base.WndProc(ref m);
 
-            if (m.Msg == WM_HOTKEY)
-            {
-                if ((int)m.WParam == id)
-                {
-                    proc();
-                }
+            if (m.Msg == WM_HOTKEY && (int)m.WParam == id) {
+                proc();
             }
         }
 

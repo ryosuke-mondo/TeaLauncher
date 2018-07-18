@@ -33,27 +33,31 @@
             // 
             // command_box
             // 
-            this.command_box.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.command_box.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.command_box.Font = new System.Drawing.Font("MS UI Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.command_box.FormattingEnabled = true;
             this.command_box.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.command_box.Location = new System.Drawing.Point(0, 0);
+            this.command_box.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.command_box.Name = "command_box";
-            this.command_box.Size = new System.Drawing.Size(204, 20);
+            this.command_box.Size = new System.Drawing.Size(465, 41);
             this.command_box.TabIndex = 1;
-            this.command_box.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.command_box_PreviewKeyDown_1);
+            this.command_box.SelectedIndexChanged += new System.EventHandler(this.command_box_SelectedIndexChanged);
             this.command_box.KeyDown += new System.Windows.Forms.KeyEventHandler(this.command_box_KeyDown);
+            this.command_box.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.command_box_PreviewKeyDown_1);
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(204, 20);
+            this.ClientSize = new System.Drawing.Size(461, 42);
             this.ControlBox = false;
             this.Controls.Add(this.command_box);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainWindow";

@@ -228,6 +228,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.";
                         RunCommand(command_box.Text);
                     }
                     break;
+                case Keys.F5: 
+                    {
+                        e.Handled = true;
+
+                        Reinitialize();
+                    }
+                    break;
+                case Keys.F4: {
+                        e.Handled = true;
+
+                        RunCommand(".\\" + m_ConfigFileName);
+                    }
+                    break;
             }
         }
 
@@ -235,22 +248,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.";
         {
             // 補完候補など取得
             string input_str = this.command_box.Text;
-            List<string> candidates = m_CommandManager.GetCandidates(input_str);
+            IEnumerable<string> candidates = m_CommandManager.GetCandidates(input_str);
             string compl_str = m_CommandManager.AutoCompleteWord(input_str);
 
             // 候補があればコマンドボックスを補完する
-            if (candidates.Count != 0)
+            if (candidates.Any())
             {
                 // 候補が2つ以上あるなら
-                if (candidates.Count >= 2)
+                if (candidates.Count() >= 2)
                 {
                     // コンボボックスに候補を表示する
                     command_box.Items.Clear();
                     command_box.DroppedDown = true;
-                    foreach (string str in candidates)
-                    {
-                        command_box.Items.Add(str);
-                    }
+                    command_box.Items.AddRange(candidates.ToArray());
                 }
                 else
                 {
@@ -308,6 +318,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.";
             HideWindow();
         }
 
+        private void command_box_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.IO;
 
 namespace CommandLauncher
 {
@@ -104,19 +105,16 @@ namespace CommandLauncher
         private bool IsPath(string str)
         {
             // FIXME : 決め打ちよくない
+            var cmd = str.Replace("\"", "");
 
-            if (str.StartsWith("http://"))
+            if (cmd.StartsWith("http://"))
                 return true;
-            if (str.StartsWith("https://"))
+            if (cmd.StartsWith("https://"))
                 return true;
-            if (str.StartsWith("ftp://"))
+            if (cmd.StartsWith("ftp://"))
                 return true;
-            if (str.Length >= 3)
-            {
-                // X:\ から始まる
-                if (str[1] == ':' && str[2] == '\\')
-                    return true;
-            }
+            if (File.Exists(cmd) || Directory.Exists(cmd))
+                return true;
 
             return false;
         }

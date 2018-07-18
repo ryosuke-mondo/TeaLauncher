@@ -57,15 +57,15 @@ namespace CommandLauncher
 
         public string AutoCompleteWord(string chars)
         {
-            List<string> list = GetCandidates(chars);
+            IEnumerable<string> list = GetCandidates(chars);
 
-            if (list.Count == 0)
+            if (!list.Any())
                 return "";
 
             // 前方一致のなかで前方から共通する部分までの文字列を取得
             {
                 int length = 0;
-                string sample = list[0];
+                string sample = list.First();
 
                 {
                     string part_of_sample = "";
@@ -95,27 +95,15 @@ namespace CommandLauncher
             }
         }
 
-        public List<string> GetCandidates(string chars)
+        public IEnumerable<string> GetCandidates(string chars)
         {
-            // 前方一致する文字列をリストで取得
-            List<string> list = m_WordList.FindAll(
-                delegate(string str)
-                {
-                    return str.StartsWith(chars);
-                }
-            );
-
-            return list;
+            // 部分一致する文字列をリストで取得
+            return m_WordList.Where(w => w.StartsWith(chars));
         }
 
         public bool HasItem(string item)
         {
-            return m_WordList.Exists(
-                delegate(string str)
-                {
-                    return str == item;
-                }
-            );
+            return m_WordList.Where(w => w == item).Any();
         }
 
         public int GetNumOfWords()
